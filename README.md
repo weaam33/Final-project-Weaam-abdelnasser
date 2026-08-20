@@ -305,11 +305,45 @@ All models trained inside a `ColumnTransformer` + `Pipeline` with:
 
 ## Screenshots
 
-| Home Page (Form) | Result Page |
-|------------------|-------------|
-| ![Home](docs/screenshots/home.png) | ![Result](docs/screenshots/result.png) |
+> **To add screenshots:** Run the app locally (`npm run dev` + `uvicorn app.main:app --reload`), then capture the following views and save them to `docs/screenshots/`:
 
-*(Add screenshots to `docs/screenshots/` before submitting)*
+### 1. Home Page — Prediction Form
+![Home Page](docs/screenshots/home.png)
+
+*Clean form with location dropdown (51 locations), BHK selector, carpet area (sqm), floor, bathrooms, balconies, car parking, furnishing, transaction, ownership, facing, and currency toggle.*
+
+### 2. Result Page — Predicted Price
+![Result Page](docs/screenshots/result.png)
+
+*Shows predicted price in selected currency (INR/USD/EGP), price per sqm, and estimated monthly EMI with disclaimer.*
+
+### 3. Swagger API Docs (FastAPI)
+![Swagger UI](docs/screenshots/swagger.png)
+
+*Auto-generated at `http://localhost:8000/docs` — test `/predict` and `/health` directly.*
+
+### 4. Terminal — Backend Tests Passing
+![Tests](docs/screenshots/tests.png)
+
+*Run `pytest -v` in `backend/` — all 4 tests should pass.*
+
+### 5. Terminal — Frontend Build Success
+![Build](docs/screenshots/build.png)
+
+*Run `npm run build` in `frontend/` — should complete without TypeScript errors.*
+
+---
+
+**Directory structure for screenshots:**
+```
+docs/
+└── screenshots/
+    ├── home.png
+    ├── result.png
+    ├── swagger.png
+    ├── tests.png
+    └── build.png
+```
 
 ---
 
