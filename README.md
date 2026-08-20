@@ -354,6 +354,9 @@ npm run dev
 3. Click "Predict price"
 4. See result on `/result` page
 
+### Screenshots
+See [docs/screenshot/screenshots.md](docs/screenshot/screenshots.md) for screenshots of the frontend and backend in action.
+
 ---
 
 ## Assumptions & Limitations
