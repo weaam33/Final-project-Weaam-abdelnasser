@@ -354,8 +354,25 @@ npm run dev
 3. Click "Predict price"
 4. See result on `/result` page
 
-### Screenshots
-See [docs/screenshot/screenshots.md](docs/screenshot/screenshots.md) for screenshots of the frontend and backend in action.
+---
+
+## Screenshots
+
+**Frontend — Prediction Form**
+
+![Prediction Form](docs/screenshot/screenshot-1.png)
+
+**Frontend — Result Page**
+
+![Result Page](docs/screenshot/screenshot-2.png)
+
+**Backend — API Docs (Swagger UI)**
+
+![Swagger UI](docs/screenshot/screenshot-3.png)
+
+**Backend — Prediction Response**
+
+![Prediction Response](docs/screenshot/screenshot-4.png)
 
 ---
 
