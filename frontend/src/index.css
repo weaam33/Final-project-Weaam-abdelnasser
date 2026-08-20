@@ -1,0 +1,54 @@
+:root {
+  /* Palette — quiet architectural brochure: sage-white, deep ink-green, emerald, brass */
+  --bg: #f3f6f4;
+  --surface: #ffffff;
+  --surface-soft: #edf2ef;
+  --ink: #12241d;
+  --ink-muted: #55665e;
+  --line: #dbe5df;
+  --primary: #69c0d2;
+  --primary-dark: #69c0d2;
+  --primary-soft: #e4efe9;
+  --accent: #ffffff;
+  --accent-soft: #e5e5e5;
+  --danger: #b5433a;
+  --danger-soft: #fbe9e6;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+
+a {
+  color: var(--primary-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
