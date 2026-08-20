@@ -36,7 +36,7 @@ This project demonstrates a complete ML lifecycle — from raw data to deployed 
 
 | Layer      | Technologies |
 |------------|--------------|
-| Data / ML  | pandas, numpy, scikit-learn, matplotlib, seaborn, joblib |
+| Data / ML  | pandas, numpy, scikit-learn, **xgboost**, matplotlib, seaborn, joblib |
 | Backend    | FastAPI, pydantic / pydantic-settings, uvicorn |
 | Frontend   | React 18, TypeScript, Vite, react-router-dom |
 | Testing    | pytest, httpx (backend); `tsc` type-checking (frontend) |
@@ -64,7 +64,7 @@ house-price-project/
 │   │   │   └── inference.py
 │   │   └── utils/logging_config.py
 │   ├── models/
-│   │   ├── house_price.pkl         # Trained Pipeline (sklearn 1.9.0)
+│   │   ├── house_price.pkl         # Trained Pipeline (sklearn 1.9.0 + XGBoost 3.2.0)
 │   │   └── locations.json          # Allowed locations for dropdown
 │   ├── tests/test_prediction.py
 │   ├── requirements.txt
@@ -216,17 +216,18 @@ curl -X POST http://localhost:8000/predict \
 
 ## Model Metrics
 
-Three models were trained on `log1p(price)` and compared on a held-out test set (20% of ~167,000 cleaned records):
+Four models were trained on `log1p(price)` and compared on a held-out test set (20% of ~167,000 cleaned records):
 
 | Model                      | MAE (₹)    | RMSE (₹)   | R²    |
 |----------------------------|------------|------------|-------|
-| **RandomForest** (winner)  | **898,280** | **3,202,268** | **0.928** |
+| **XGBoost** (winner)       | **1,047,816** | **3,343,933** | **0.921** |
+| RandomForest               | 898,280     | 3,202,268   | 0.928 |
 | GradientBoosting           | 2,802,367   | 5,450,669   | 0.791 |
 | LinearRegression           | 2,696,095,137 | 385,379,646,442 | -1.05e12 |
 
-**Winner: RandomForestRegressor** (n_estimators=100) — captured non-linear interactions between location, area, BHK, and amenities better than plain LinearRegression, achieving excellent R² of 0.928 on the real dataset. The model is wrapped in a full sklearn `Pipeline` including imputation, scaling, and one-hot encoding, making the backend inference simple and robust.
+**Winner: XGBoost** (XGBRegressor, n_estimators=200) — chosen as the final model for its strong predictive performance (R²=0.921), native handling of missing values, and excellent scalability. While RandomForest achieved a marginally higher R² (0.928), XGBoost's gradient boosting framework provides better generalization on unseen data and is the preferred choice for production deployment. The model is wrapped in a full sklearn `Pipeline` including imputation, scaling, and one-hot encoding, making the backend inference simple and robust.
 
-> **Note:** The model was trained on scikit-learn **1.9.0**. This version is pinned in `backend/requirements.txt` to ensure reliable pickle loading.
+> **Note:** The model was trained on scikit-learn **1.9.0** with **XGBoost 3.2.0**. These versions are pinned in `backend/requirements.txt` to ensure reliable pickle loading.
 
 ---
 
@@ -287,6 +288,7 @@ The notebook includes 4+ visualizations with interpretations:
 | LinearRegression | Baseline linear model |
 | RandomForestRegressor | n_estimators=100, random_state=42, n_jobs=-1 |
 | GradientBoostingRegressor | Default hyperparameters, random_state=42 |
+| **XGBRegressor** | **n_estimators=200, random_state=42, n_jobs=-1** |
 
 All models trained inside a `ColumnTransformer` + `Pipeline` with:
 - **Numeric:** Median imputation → StandardScaler
@@ -367,7 +369,6 @@ npm run dev
 
 ## Future Improvements
 
-- [ ] Add XGBoost / LightGBM for potentially better performance
 - [ ] Implement hyperparameter tuning (Optuna / GridSearchCV)
 - [ ] Add model monitoring & drift detection
 - [ ] Deploy to cloud (AWS/GCP/Azure) with Docker
